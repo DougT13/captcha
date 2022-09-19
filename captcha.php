@@ -1,9 +1,10 @@
 <?php
+
    session_start(); // inicial a sessao
    header("Content-type: image/jpeg"); // define o tipo do arquivo
 
-    function captcha($largura,$altura,$tamanho_fonte,$quantidade_letras){
-        $imagem = imagecreate($largura,$altura); // define a largura e a altura da imagem
+    function captcha($larguraInt,$alturaInt,$tamanho_fonte,$quantidade_letras){
+        $imagem = imagecreate($larguraInt,$alturaInt); // define a largura e a altura da imagem
         $fonte = getcwd()."/arial.ttf"; //voce deve ter essa ou outra fonte de sua preferencia em sua pasta
         $preto  = imagecolorallocate($imagem,0,0,0); // define a cor preta
         $branco = imagecolorallocate($imagem,255,255,255); // define a cor branca
@@ -20,11 +21,16 @@
         imagejpeg($imagem); // gera a imagem
         imagedestroy($imagem); // limpa a imagem da memoria
     }
+    
 
-    $largura = $_GET["l"]; // recebe a largura
-    $altura = $_GET["a"]; // recebe a altura
-    $tamanho_fonte = $_GET["tf"]; // recebe o tamanho da fonte
-    $quantidade_letras = $_GET["ql"]; // recebe a quantidade de letras que o captcha terá
+    $largura = $_POST['l']; // recebe a largura
+    $altura = $_POST['a']; // recebe a altura
+    $larguraInt = intval($largura);
+    $alturaInt = intval($altura);
+    $tamanho_fonte = 20; // recebe o tamanho da fonte
+    $quantidade_letras = 5; // recebe a quantidade de letras que o captcha terá
+
+
     captcha($largura,$altura,$tamanho_fonte,$quantidade_letras);
     
 ?>
